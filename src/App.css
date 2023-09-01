@@ -1,4 +1,14 @@
+:root {
+  
+  /* Tipografia */
+  font-family: "Peralta", serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
 
+  /* Paleta de colores */
+  
+}
 
 * {
   box-sizing: border-box;
