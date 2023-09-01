@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/practico3/static/css/main.9673f9b7.css",
+    "main.js": "/practico3/static/js/main.9e651fdd.js",
+    "index.html": "/practico3/index.html",
+    "main.9673f9b7.css.map": "/practico3/static/css/main.9673f9b7.css.map",
+    "main.9e651fdd.js.map": "/practico3/static/js/main.9e651fdd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9673f9b7.css",
+    "static/js/main.9e651fdd.js"
+  ]
+}
