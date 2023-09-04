@@ -7,7 +7,10 @@
   text-rendering: optimizeLegibility;
 
   /* Paleta de colores */
-  
+  --azul: hsl(224, 100%, 57%);
+  --rojo: hsl(0, 100%, 42%);
+  --amarillo: hsl(60, 100%, 42%);
+  --blanco: hsl(0, 0%, 99%);
 }
 
 * {
@@ -20,4 +23,17 @@
 
 body {
   min-height: 100vh;
+  background-color: var(--amarillo);
+}
+
+
+.hand {
+  cursor: pointer;
+  width: 64px;
+  height: auto;
+}
+
+.play {
+  width: 128px;
+  height: auto;
 }
