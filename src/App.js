@@ -3,34 +3,36 @@ import { useState, useEffect } from 'react'
 import Ready from './components/Ready'
 import PlayerOne from './components/PlayerOne'
 import PlayerTwo from './components/PlayerTwo'
+import GameOver from './components/GameOver'
 import './App.css'
 
 const App = () => {
 
   const initialState = {
+    msg: '',
     playerOne: {
       alias: '',
       isValidated: false,
+      key: '123',
       play: '',
       score: 0,
     },
     playerTwo: {
       alias: 'La Compu',
+      key: '123',
       play: '',
       score: 0,
     },
     round: 1,
-    msg: '',
   }
 
   const [state, setState] = useState(initialState);
 
   useEffect(() => {
-    console.log(state);
-    if (state.playerOne.play && state.playerTwo.play) {
-      isWinner(state.playerOne.play, state.playerTwo.play);
-    }
-  }, [state.playerOne.play, state.playerTwo.play])
+    console.log((state.playerOne.play).slice(0, -3), (state.playerTwo.play).slice(0, -3));
+    console.log(state.playerOne.key, state.playerTwo.key);
+    roundWinner((state.playerOne.play).slice(0, -3), (state.playerTwo.play).slice(0, -3));
+  }, [state.playerOne.play && state.playerTwo.play])
 
 
   const setPlayerOneAlias = (prevState, value) => {
@@ -49,17 +51,8 @@ const App = () => {
       ...prevState,
       playerOne: {
         ...prevState.playerOne,
-        play: value,
-      },
-    });
-  }
-
-  const setPlayerOneScore = (prevState, value) => {
-    setState({
-      ...prevState,
-      playerOne: {
-        ...prevState.playerOne,
-        score: value,
+        key: Math.random().toString().slice(-3),
+        play: value + prevState.playerOne.key,
       },
     });
   }
@@ -69,62 +62,75 @@ const App = () => {
       ...prevState,
       playerTwo: {
         ...prevState.playerTwo,
-        play: value,
+        key: Math.random().toString().slice(-3),
+        play: value + prevState.playerTwo.key,
       },
     });
   }
 
-  const setPlayerTwoScore = (prevState, value) => {
+  const reRandom = () => {
+    const msgOptions = ['Esto se pone interesante...', 'Que suerte!', 'Ya se define...', 'Vamos todavia!'];
+    return msgOptions[Math.floor(Math.random() * msgOptions.length)];
+  }
+
+  const tie = (prevState) => {
     setState({
       ...prevState,
+      msg: `Ronda ${state.round}: empate. Todo sigue igual.`,
+    })
+  }
+
+  const pointForPlayerOne = (prevState) => {
+    setState({
+      ...prevState,
+      msg: `Ronda ${state.round}: gana ${state.playerOne.alias}. ` + reRandom(),
+      playerOne: {
+        ...prevState.playerOne,
+        score: prevState.playerOne.score + 1,
+      },
+      round: prevState.round + 1,
+    })
+  }
+
+  const pointForPlayerTwo = (prevState) => {
+    setState({
+      ...prevState,
+      msg: `Ronda ${state.round}: gana ${state.playerTwo.alias}. ` + reRandom(),
       playerTwo: {
         ...prevState.playerTwo,
-        score: value,
+        score: prevState.playerTwo.score + 1,
       },
-    });
+      round: prevState.round + 1,
+    })
   }
 
-  const setMessage = (prevState, value) => {
-    setState({
-      ...prevState,
-      msg: value,
-    });
-  }
-
-  const setRound = (prevState, value) => {
-    setState({
-      ...prevState,
-      round: value,
-    });
+  const restart = () => {
+    setState(initialState);
   }
 
   // Esta funcion calcula el ganador de cada ronda, generando un mensaje de resultado mas un mensaje random 
   // y actualiza las variables de ronda y score o no en caso de empate, segun lo requerido en la parte 4.
-  const isWinner = (p1, p2) => {
-    const reRandom = () => {
-      const msgOptions = ['Esto se pone interesante...', 'Que suerte!', 'Ya se define...', 'Vamos todavia!'];
-      return msgOptions[Math.floor(Math.random() * msgOptions.length)];
-    }
+  const roundWinner = (p1, p2) => {
 
-    if (p1 === p2) {
-      setMessage(state, `Ronda ${state.round}: empate. Todo sigue igual.`);
-      return;
-
-    } else if (
-      (p1 === 'piedra' && p2 === 'tijeras') ||
-      (p1 === 'papel' && p2 === 'piedra') ||
-      (p1 === 'tijeras' && p2 === 'papel')
-    ) {
-      setPlayerOneScore(state, state.playerOne.score + 1);
-      setRound(state, state.round + 1);
-      setMessage(state, `Ronda ${state.round}: gana ${state.playerOne.alias}. ` + reRandom());
-      return;
-      
+    if (!p1 || !p2) {
+      return null;
     } else {
-      setPlayerTwoScore(state, state.playerTwo.score + 1);
-      setRound(state, state.round + 1);
-      setMessage(state, `Ronda ${state.round}: gana ${state.playerTwo.alias}. ` + reRandom());
-      return;
+      if (p1 === p2) {
+        tie(state);
+        return;
+
+      } else if (
+        (p1 === 'rock' && p2 === 'scissors') ||
+        (p1 === 'paper' && p2 === 'rock') ||
+        (p1 === 'scissors' && p2 === 'paper')
+      ) {
+        pointForPlayerOne(state);
+        return;
+      
+      } else {
+        pointForPlayerTwo(state);
+        return;
+      }
     }
   }
 
@@ -133,7 +139,9 @@ const App = () => {
       {
         !state.playerOne.alias
           ? <Ready state={state} handler={setPlayerOneAlias} />
-          : <>
+          : state.playerOne.score === 3 || state.playerTwo.score === 3
+            ? <GameOver state={state} handler={restart} />
+            : <>
               <header>
                 <h1>Piedra, Papel o Tijeras</h1>
               </header>

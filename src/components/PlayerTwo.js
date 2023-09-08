@@ -1,24 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import piedra from "../assets/piedra.png"
-import papel from "../assets/papel.png"
-import tijeras from "../assets/tijeras.png"
+import rock from "../assets/rock.png"
+import paper from "../assets/paper.png"
+import scissors from "../assets/scissors.png"
 import PropTypes from "prop-types"
 
 const PlayerTwo = ({ state, handler }) => {
 
   const DATA = [
     {
-      alt: 'piedra',
-      src: { piedra },
+      alt: 'rock',
+      src: { rock },
     },
     {
-      alt: 'papel',
-      src: { papel },
+      alt: 'paper',
+      src: { paper },
     },
     {
-      alt: 'tijeras',
-      src: { tijeras },
+      alt: 'scissors',
+      src: { scissors },
     }
   ];
 
@@ -28,16 +28,17 @@ const PlayerTwo = ({ state, handler }) => {
       const generateRandom = Math.floor(Math.random() * availablePlays.length);
       handler(state, availablePlays[generateRandom]);
     }
-  }, [state.playerOne.play])
+  }, [state.playerOne.play, state.playerTwo.play])
 
   const DisplayHand = () => (
     DATA
       .map((item, index) => {
         return (
-          state.playerTwo.play === item.alt &&
-          <img key={`p1_hand_${index}`} src={Object.values(item.src)} alt={item.alt} className="play" />
+          (state.playerTwo.play).slice(0, -3) === item.alt &&
+          <img key={`p2_hand_${index}`} src={Object.values(item.src)} alt={item.alt} className="play" />
         )
-      })
+      }
+    )
   )
 
   return (

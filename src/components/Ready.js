@@ -1,17 +1,17 @@
 // El componente para establecer el nombre del jugador, con un bloque try catch que lanza excepciones si el
 // usuario no ingresa un nombre o si el nombre ingresado es muy largo.
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import { useRef, useCallback, useEffect } from "react"
+import { useRef, useEffect } from "react"
 import PropTypes from "prop-types"
 
 const Ready = ({ state, handler }) => {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
-  const showModal = useCallback(() => { modalRef.current.showModal() }, []);
 
   useEffect(() => {
-    showModal();
-  }, [showModal])
+    modalRef.current.showModal();
+  }, [])
 
   const validate = (event) => {
     try {
@@ -40,7 +40,7 @@ const Ready = ({ state, handler }) => {
 
   // Este elemento funciona como un modal para que el usuario ingrese su nombre al inicio del juego.
   return (
-    <dialog className="modal" ref={modalRef} onCancel={(event) => { event.preventDefault() }}>
+    <dialog className={"modal"} ref={modalRef} onCancel={(event) => { event.preventDefault() }}>
       <form action={"#"} method={"dialog"}>
         <label htmlFor={inputRef}>
           Bienvenido.
