@@ -20,3 +20,5 @@
 - El usuario puede recomenzar el juego haciendo click en el botón "revancha" o se puede establecer un nuevo jugador haciendo click en el botón "nuevo jugador".
 
 ### Buena suerte!
+
+* Para mas información referirse a la carpeta de documentación.

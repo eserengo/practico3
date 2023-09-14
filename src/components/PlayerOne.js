@@ -1,11 +1,114 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import rock from "../assets/rock.png"
-import paper from "../assets/paper.png"
-import scissors from "../assets/scissors.png"
-import PropTypes from "prop-types"
+import styled, { keyframes } from 'styled-components'
+import rock from '../assets/rock.png'
+import paper from '../assets/paper.png'
+import scissors from '../assets/scissors.png'
+import PropTypes from 'prop-types'
 
-const PlayerOne = ({ state, handler }) => {
+// Primero los estilos con styled-components.
+const Pulse = keyframes`
+from {
+  transform: scale(1.2);
+}
+to {
+  transform: scale(0.9);
+}
+`;
 
+const Popup = keyframes`
+from {
+  transform: scale(0);
+}
+to {
+  transform: scale(1);
+}
+`;
+
+const Section = styled.section`
+grid-column: 1;
+grid-row: 1;
+border: 2px solid var(--azul);
+border-radius: 8px;
+background-color: var(--blanco);
+width: 100%;
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+align-items: center;
+justify-content: space-around;
+padding: 1vh 2vw 6vh;
+
+@media screen and (width > 376px) {
+  padding: 1vh 6vw;
+}
+`;
+
+const Aside = styled.aside`
+position: relative;
+grid-column: 1;
+grid-row: 3;
+display: flex;
+flex-flow: column nowrap;
+align-items: center;
+justify-content: center;
+border: 2px solid var(--azul);
+border-radius: 8px;
+background-color: var(--blanco);
+padding: 2vh 2vw 4vh;
+
+@media screen and (width > 376px) {
+  flex-direction: row;
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  gap: 2vw;
+  min-height: 15vh;
+  padding: 2vh 2vw;
+}
+`;
+
+const Wrapper = styled.div`
+display: flex;
+flex-flow: row nowrap;
+align-items: center;
+gap: 1rem;
+`;
+
+const Icon = styled.img`
+width: max(6vw, 3rem);
+border-radius: 50%;
+background-color: transparent;
+aspect-ratio: 3/3;
+transition: all 1.6s ease;
+
+&:hover {
+  animation: ${Pulse} 1.6s linear 0s normal infinite;
+  cursor: pointer;
+}
+`;
+
+const Hand = styled.img`
+width: max(12vw, 4rem);
+border-radius: 50%;
+background-color: transparent;
+aspect-ratio: 3/3;
+animation: ${Popup} 0.4s linear 0s normal 1;
+`;
+
+const Subtitle = styled.h2`
+color: var(--azul);
+font-weight: 400;
+font-size: 1rem;
+margin: 0.5rem 0rem;
+
+@media screen and (width > 376px) {
+  font-size: 2vw;
+}
+`;
+
+// El componente que representa al usuario.
+const PlayerOne = ({ state, helper }) => {
+
+  // Array para representar las distintas opciones de mano.
   const DATA = [
     {
       alt: 'rock',
@@ -21,45 +124,51 @@ const PlayerOne = ({ state, handler }) => {
     }
   ];
 
+  // Este componente crea las imagenes en los que el usuario puede seleccionar su mano.
   const CreateHands = () => (
-    <aside>
-      {DATA
-        .map((item, index) => {
-          return (
-            <img key={`p1_preview_${index}`} src={Object.values(item.src)} alt={item.alt} className={"hand"}
-              onClick={(event) => handler(state, event.target.alt)} />
-          )
-        })
-      }
-    </aside>
+    <Aside>
+      <Subtitle>Seleccione su mano:</Subtitle>
+      <Wrapper>
+        {DATA
+          .map((item, index) => {
+            return (
+              <Icon key={`p1_preview_${index}`} src={Object.values(item.src)} alt={item.alt}
+                onClick={(event) => helper(state, event.target.alt)} />
+            )
+          })
+        }
+      </Wrapper>
+    </Aside>
   )
 
+  // Muestra la imagen de la mano del usuario.
   const DisplayHand = () => (
     DATA
       .map((item, index) => {
         return (
           (state.playerOne.play).slice(0, -3) === item.alt &&
-          <img key={`p1_hand_${index}`} src={Object.values(item.src)} alt={item.alt} className="play" />
+          <Hand key={`p1_hand_${index}`} src={Object.values(item.src)} alt={item.alt} />
         )
       }
     )
   )
 
+  // El HTML que renderiza el componente.
   return (
-    <section>
-      <article>
-        <h2>{state.playerOne.alias}</h2>
+    <>
+      <Section>
+        <Subtitle>{state.playerOne.alias}</Subtitle>
         <DisplayHand />
-        <h2>score: <span>{state.playerOne.score}</span></h2>
-      </article>
+        <Subtitle>score: {state.playerOne.score}</Subtitle>
+      </Section>
       <CreateHands />
-    </section>
+    </>
   );
 }
 
 PlayerOne.propTypes = {
   state: PropTypes.object,
-  handler: PropTypes.func,
+  helper: PropTypes.func,
 }
 
 export default PlayerOne;
