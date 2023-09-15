@@ -22,6 +22,6 @@
 ### Buena suerte!
 
 
-* Para mas información referirse a la carpeta de documentación. *
+*Para mas información referirse a la carpeta de documentación.*
 
-* Para la version en vivo dirigirse a (https://eserengo.github.io/practico3/) *
+*Para la versión en vivo dirigirse a https://eserengo.github.io/practico3/*
