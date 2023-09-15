@@ -20,6 +20,13 @@ background-size: 90% 90%;
 background-position: center;
 padding: 10vh 10vw;
 
+&::backdrop {
+  background-image: linear-gradient(to right, rgba(3, 3, 3, 0.25), rgba(3, 3, 3, 0.25));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 @media screen and (width > 768px) {
   padding: 25vh 5vw;
 }
@@ -28,13 +35,13 @@ padding: 10vh 10vw;
 const Subtitle = styled.h2`
 color: var(--rojo);
 font-weight: 400;
-font-size: 1.25rem;
+font-size: 1.5rem;
 `;
 
 const Para = styled.p`
 color: var(--rojo);
 font-weight: 400;
-font-size: 1rem;
+font-size: 1.25rem;
 margin-bottom: 0.5rem;
 `;
 

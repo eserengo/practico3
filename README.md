@@ -17,8 +17,11 @@
 
 ## Al final:
 - Si alguno de los jugadores alcanza tres(3) victorias, el juego termina y se anuncia al ganador.
-- El usuario puede recomenzar el juego haciendo click en el botón "revancha" o se puede establecer un nuevo jugador haciendo click en el botón "nuevo jugador".
+- El usuario puede recomenzar el juego haciendo click en el botón "Reiniciar el juego".
 
 ### Buena suerte!
 
-* Para mas información referirse a la carpeta de documentación.
+
+* Para mas información referirse a la carpeta de documentación. *
+
+* Para la version en vivo dirigirse a (https://eserengo.github.io/practico3/) *

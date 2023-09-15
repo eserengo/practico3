@@ -43,6 +43,6 @@ Convertir el juego realizado para el práctico 2 a una aplicación React.
 
 ## PARTE 10: Documentación y entrega 
 1. Agrega en el Readme.md una explicación para un usuario típico del juego y detalla lo implementado. 
-2. Al finalizar todos los ejercicios deberás crear un tag con el nombre de práctico3 para realizar la entrega del mismo. Fecha de entrega: 12/9 a las 21:30hs 
+2. Al finalizar todos los ejercicios deberás crear un tag con el nombre de práctico3 para realizar la entrega del mismo. Fecha de entrega: 16/9 a las 13:00hs 
 
 Recuerda que este práctico te permitirá aplicar tus conocimientos básicos de REACT para crear un juego interactivo. ¡Diviértete recreando el juego "piedra, papel o tijera" en react y sigue mejorando tus habilidades en programación web frontend! Si tienes alguna pregunta o necesitas más aclaraciones, no dudes en preguntar. ¡Buena suerte! 
